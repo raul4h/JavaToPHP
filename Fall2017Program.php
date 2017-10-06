@@ -153,6 +153,29 @@ function execCond($indent){
     return $v1 < $v2;
 }
 
+function execExpr($indent){
+    global $currentToken,$lex,$values;
+    if ($currentToken->type == Token::VALUE){
+        $val = $currentToken->val;
+        echo $val;
+        $currentToken = $lex->next();
+        return $val;
+    }
+    if ($currentToken->type == Token::ID){
+        $c = substr($currentToken->type,0,1);
+        echo $c;
+        if (array_key_exists($c,$values)){
+            $currentToken = $lex->next();
+            return intval($values[$c]);
+        }
+        else{
+            echo "Reference to an undefined variable \n";
+            throw new Exception();
+        }
+    }
+    echo "An expression should be either a digit or a letter \n";
+    throw new Exception();
+}
 
 
 ?>
