@@ -22,7 +22,24 @@ class Token
     const EOF = 12;
     const INVALID = 13;
 
-    function __construct($theType)
+    function __construct()
+    {
+        $arguments = func_get_args();
+        $numArgs = func_num_args();
+
+        switch ($numArgs) {
+            case 1:
+                $this->Token($arguments[0]);
+                break;
+            case 2:
+                $this->Token2($arguments[0], $arguments[1]);
+                break;
+            case 3:
+                $this->Token3($arguments[0], $arguments[1], $arguments[2]);
+        }
+    }
+
+    function Token($theType)
     {
         $this->type = $theType;
     }
